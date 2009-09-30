@@ -1,12 +1,39 @@
-Quake
+GLES Quake
 
-In order to run Quake on the simulator and/or device, you must:
+This is a port of Quake to OpenGL ES and the Android platform.
 
-	1) Configure the Sources
-        2) Build
-	3) Install
-	4) Run
-	5) Uninstall Quake (this step is optional)
+See the file BUGS for known bugs and limitations.
+
+Introduction
+
+In order to run Quake on the emulator and/or an Android device, you must:
+
+	1) Obtain the Quake Game Data Files
+	2) Configure the Sources
+        3) Build
+	4) Install
+	5) Run
+	6) Uninstall Quake (this step is optional)
+
+Obtain the Quake Game Data Files
+--------------------------------
+
+When id Software released the source code to Quake to the public under the GPL license, they did not
+similarly release the game data. Therefore, in order to actually play gles Quake, you must somehow obtain
+the Quake game data files. Two ways of doing this are:
+
+1) Buy a copy of Quake for a personal computer, and copy the pak files that come with that version.
+2) Download and install the shareware version of Quake.
+
+The rest of these instructions, and the actual glesquake application, assume that you have installed the
+shareware version of Quake and copied the pak0.pak file to the location
+glesquake/quake/app/id1/pak0.pak in the glesquake source tree.
+
+(Unfortunately I can't help you obtain a copy of the quake game data files. I will mention that the
+original version of Shareware Quake was available for DOS machines, so you may have to install a DOS
+emulator, and also that at one time id software made the shareware version of Quake available on their
+ftp server. Beyond that, Internet search engines are your friend.)
+
 
 Configure the Sources
 ---------------------
@@ -28,12 +55,10 @@ the web server. Read the source for DownloaderActivity.java to figure out how to
 Building Quake
 --------------
 
-Quake and libQuake are built by default, as part of the standard Android build.
-If for some reason you would like to build Quake manually, you can do so by
-using the mm command:
+Build from the command line:
 
-$ cd $TOP/apps/Quake
-$ mm
+$ cd glesquake
+$ make
 
 
 Installing Quake
@@ -48,7 +73,7 @@ micro SD card (This is /sdcard/data/quake directory).
 Using the device with a microsd card:
 
 	Turn on phone, plug into your development PC/Mac using the supplied ADB cable.
-	cd $TOP/apps/Quake
+	cd glesquake
 	adb remount
 	adb install $OUT/system/app/Quake.apk
 

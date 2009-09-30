@@ -9,7 +9,7 @@ Introduction
 In order to run Quake on the emulator and/or an Android device, you must:
 
 	1) Obtain the Quake Game Data Files
-	2) Configure the Sources
+	2) Obtain the Software Nneeded to Nuild GLES Quake
         3) Build
 	4) Install
 	5) Run
@@ -35,22 +35,16 @@ emulator, and also that at one time id software made the shareware version of Qu
 ftp server. Beyond that, Internet search engines are your friend.)
 
 
-Configure the Sources
----------------------
+Obtain the Software Needed to Build GLES Quake
+----------------------------------------------
 
-Edit src/com/android/quake/QuakeActivity.java to configure where and how Quake will obtain its data files. The
-configuration variables are:
+Currently GLES Quake is built using the full Android source tree, which can be obtained here:
 
-    private final static boolean USE_INTERNAL_FLASH = false;
-    private final static boolean USE_DOWNLOADER = false;
+http://source.android.com/download
 
-This means that by default Quake will look for its files on the SD Card, and it will not
-attempt to download the files from an external web server. (Use the ./setupdevicesdcard.sh script,
-described below, to copy the data files from the Android source tree onto the device's SD Card.)
+Follow the instructions on that page to install and build a copy of the Android source tree. Once
+you can do that, you will have installed the tools and libraries needed to build GLES Quake.
 
-Note that if USE_DOWNLOADER is set to true then you need to configure a web server to serve the Quake
-data files, and the FILE_CONFIG_URL variable needs to be set to point to the configuration file on
-the web server. Read the source for DownloaderActivity.java to figure out how to do this.
 
 Building Quake
 --------------
@@ -87,7 +81,7 @@ Then install the Quake data files by executing this script:
 
 	./setupdevice.sh
 
-(Or if you've set QuakeActivity.USE_INTERNAL_FLASH to false, then use this script instead:)
+(Or if you prefer to store the Quake data files on a SD Card, use this script instead:)
 
 	./setupdevicesdcard.sh
 

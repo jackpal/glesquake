@@ -1,0 +1,44 @@
+GLES Quake Frequently Asked Questions
+
+Q: Why isn't GLES Quake available on the Android Marketplace?
+
+A: Unfortunately the license terms of the Android Marketplace do not permit
+shareware, and id Sofware does not provide a non-shareware version of the
+nescessary game data.
+
+Q: Why isn't there any sound?
+
+A: Streaming audio is not currently supported by the NDK, and I have not
+investigated whether it would be possible to use the Android Java sound APIs
+from within the NDK.
+
+Q: Why isn't Internet multiplayer supported?
+
+A: This is a port of glQuake, not glQuakeWorld, so it does not handle
+Internet multiplayer. I chose to port glQuake because I wanted to
+be able to run the "timedemo" demos for timing OpenGL driver performance.
+
+Q: Why don't you include the pak0.pak game data file in the source code?
+
+A: Because that file is owned by id Software.
+
+Q: Where can I find a copy of pak0.pak?
+
+A: You could try to track down a copy of the original id Software DOS shareware
+version of Quake, which at one time was available on the id Software
+FTP servers. Or you could buy a copy of Quake and use the pak file from
+the commercial version.
+
+Q: Why did you port Quake to the Android platform?
+
+A: I ported Quake as a test of the Android OpenGL ES drivers, and as a test
+of the Android Native Development Kit.
+
+Q: Do you plan to port any other version of Quake, such as QuakeWorld, Quake 2, Quake 3?
+
+A: No, I'll let someone else have the glory. :-)
+
+Q: Have you ported Quake to other platforms?
+
+A: Yes, I did a port to Direct3D about 10 years ago. (Search for dxquake on SourceForge.)
+

@@ -21,14 +21,18 @@
 #define LOG_TAG "Quake"
 
 #include <GLES/gl.h>
+#ifdef ANDROID_NDK
+#include <android/log.h>
+#else
 #include <utils/Log.h>
+#define ENABLE_PMP
 #include <utils/Timers.h>
+#endif
 
 #include <quakedef.h>
 
 // Timer utilities
 
-#define ENABLE_PMP
 #define USE_LOG
 
 #ifdef ENABLE_PMP

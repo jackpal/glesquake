@@ -41,7 +41,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <errno.h>
 #include <dirent.h>
 
+#ifdef ANDROID_NDK
+#define LOG_TAG "sys_android"
+#include <android/log.h>
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#else
 #include <utils/Log.h>
+#endif
 #include "quakedef.h"
 
 qboolean			isDedicated;

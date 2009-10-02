@@ -39,4 +39,5 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask" />
     </application>
+    <uses-sdk android:minSdkVersion="4" />
 </manifest>

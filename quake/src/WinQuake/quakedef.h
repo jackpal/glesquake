@@ -417,19 +417,23 @@ void PMP_Begin(const char* fmt,...);
 void PMP_Event(const char* fmt,...);
 void PMP_End(const char* fmt,...);
 
+// #define ENABLE_PMP
+
+#ifdef ENABLE_PMP
 #define PMPLOG(ARGS) PMP_Event ARGS
 #define PMPWARNING(ARGS) PMP_Event ARGS
 #define PMPERROR(ARGS) PMP_Event ARGS
 
-// #define ENABLE_PMP
-
-#ifdef ENABLE_PMP
 
 #define PMPBEGIN(ARGS) PMP_Begin ARGS
 #define PMPEVENT(ARGS) PMP_Event ARGS
 #define PMPEND(ARGS) PMP_End ARGS
 
 #else
+#define PMPLOG(ARGS) ((void) 0)
+#define PMPWARNING(ARGS) ((void) 0)
+#define PMPERROR(ARGS) ((void) 0)
+
 
 #define PMPBEGIN(ARGS) ((void) 0)
 #define PMPEVENT(ARGS) ((void) 0)

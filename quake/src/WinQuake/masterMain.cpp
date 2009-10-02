@@ -14,14 +14,22 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
+#define LOG_TAG "QuakeMaster"
 
+#ifdef ANDROID_NDK
+#include <jni.h>
+#include <android/log.h>
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
+#else
 #include <nativehelper/jni.h>
+#include <utils/Log.h>
+#endif
+
 #include <stdio.h>
 #include <assert.h>
 #include <dlfcn.h>
 
-#define LOG_TAG "QuakeMaster"
-#include <utils/Log.h>
 
 int AndroidInit();
 int AndroidEvent2(int type, int value);

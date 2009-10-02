@@ -322,7 +322,11 @@ void CL_PlayDemo_f (void)
 
 // The timedemo numbers are very important to testing, so log them even if normal console printing is disabled.
 
+#ifdef ANDROID_NDK
+#define LOGANDPRINT(ARGS) Con_Printf ARGS
+#else
 #define LOGANDPRINT(ARGS) Con_Printf ARGS ; PMPLOG(ARGS)
+#endif
 
 /*
 ====================

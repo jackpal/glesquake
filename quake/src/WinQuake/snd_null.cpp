@@ -22,8 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "quakedef.h"
 
-cvar_t bgmvolume = {"bgmvolume", "1", true};
-cvar_t volume = {"volume", "0.7", true};
+cvar_t bgmvolume = CVAR3("bgmvolume", "1", true);
+cvar_t volume = CVAR3("volume", "0.7", true);
 
  
 void S_Init (void)
@@ -42,7 +42,7 @@ void S_Shutdown (void)
 {
 }
 
-void S_TouchSound (char *sample)
+void S_TouchSound (const char *sample)
 {
 }
 
@@ -62,7 +62,7 @@ void S_StopSound (int entnum, int entchannel)
 {
 }
 
-sfx_t *S_PrecacheSound (char *sample)
+sfx_t *S_PrecacheSound (const char *sample)
 {
 	return NULL;
 }
@@ -91,7 +91,7 @@ void S_ExtraUpdate (void)
 {
 }
 
-void S_LocalSound (char *s)
+void S_LocalSound (const char *s)
 {
 }
 

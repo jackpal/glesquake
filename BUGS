@@ -1,7 +1,11 @@
 GLES Quake Known Bugs and Limitations
 
-+ Currently requires the Android TMobile G1, because it expects a keyboard with the exact configuration of the G1.
-+ Currently cannot be built with the SDK / NDK. You have to build using the full Android porting platform.
-+ Currently the HELP/ORDERING menu item automatically runs timedemo1. (Useful for benchmarking, not so great for
-  playing games.)
+- No sound or music.
+- No Internet (or telephone network) multiplayer. (WiFi-based local multiplayer works.)
+- Controls have not been adapted to the Android handset.
+
+- The keyboard controls are hard-wired to the Android TMobile G1 keyboard layout.
+
+- The HELP/ORDERING menu item automatically runs timedemo1. (Useful for benchmarking, not so great for
+  getting help.)
 

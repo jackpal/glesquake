@@ -35,13 +35,6 @@ public class QuakeActivity extends Activity {
     @Override protected void onCreate(Bundle icicle) {
         Log.i("QuakeActivity", "onCreate");
         super.onCreate(icicle);
-        if (USE_DOWNLOADER) {
-            if (! DownloaderActivity.ensureDownloaded(this,
-                    getString(R.string.quake_customDownloadText), FILE_CONFIG_URL,
-                    CONFIG_VERSION, SDCARD_DATA_PATH, USER_AGENT)) {
-                return;
-            }
-        }
 
         if (foundQuakeData()) {
 
@@ -105,14 +98,7 @@ public class QuakeActivity extends Activity {
         return f.exists();
     }
 
-    private final static boolean USE_DOWNLOADER = false;
-    
-    private final static String FILE_CONFIG_URL =
-        "http://example.com/android/quake/quake11.config";
-    private final static String CONFIG_VERSION = "1.1";
     private final static String SDCARD_DATA_PATH = "/sdcard/data/quake";
     private final static String INTERNAL_DATA_PATH = "/data/quake";
     private final static String PAK0_PATH = "/id1/pak0.pak";
-    private final static String USER_AGENT = "Android Quake Downloader";
-
 }

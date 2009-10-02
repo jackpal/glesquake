@@ -34,10 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="DownloaderActivity"
-            android:label="@string/download_activity_title"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask" />
     </application>
     <uses-sdk android:minSdkVersion="4" />
 </manifest>

@@ -1,0 +1,27 @@
+Uninstalling Quake
+------------------
+
+Quake has to be uninstalled in two parts:
+    a) the Quake.apk file
+    b) the data files on the sdcard
+
+Use the Phone UI to uninstall the Quake apk:
+
+    Press Home Key
+    Press Menu Key
+    Select Settings
+    Select Applications
+    Selct Manage Applications
+    Select Quake
+    Press "Uninstall"
+
+Make sure your device is not mounted as an USB Storage Device:
+    Press Home button on Phone
+    Press Menu
+    Select "SD card & phone storage
+    Make sure "Use for USB storage" is unchecked
+
+Then run this script to delete the Quake files on the sdcard:
+
+    cd $TOP/apps/Quake
+    ./cleanupdevicesdcard.sh

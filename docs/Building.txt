@@ -1,0 +1,93 @@
+
+Obtain the Quake Game Data Files
+--------------------------------
+
+When id Software released the source code to Quake to the public under the GPL license, they did not
+similarly release the game data. Therefore, in order to actually play gles Quake, you must somehow
+obtain the Quake game data files. Two ways of doing this are:
+
+1) Buy a copy of Quake for a personal computer, and copy the pak files that come with that version.
+2) Download and install the shareware version of Quake.
+
+The rest of these instructions, and the actual glesquake application, assume that you have installed
+the shareware version of Quake and copied the pak0.pak file to the location
+glesquake/quake/app/id1/pak0.pak in the glesquake source tree.
+
+Unfortunately I can't help you obtain a copy of the Quake game data files. I will mention that the
+original version of shareware Quake was available for DOS machines, so you may have to install a DOS
+emulator, and also that at one time id software made the shareware version of Quake available on
+their ftp server. Beyond that, Internet search engines may be helpful.
+
+Obtain the Software Needed to Build GLES Quake
+----------------------------------------------
+
+GLES Quake is built using the Android SDK 1.6 or newer and the Android NDK 1.6 or newer. You
+can install them from:
+
+http://developer.android.com/sdk
+
+You will also need Eclipse 3.4 or newer, Java version, available from:
+
+http://eclipse.org
+
+
+After you install the SDK and the NDK, please build some of the samples that
+come with the NDK in order to get a feel for using the SDK and the NDK.
+
+Setting up the Quake NDK Application Stub
+-----------------------------------------
+
+The current version of the NDK requires that you build the NDK library for Quake from within
+the NDK source tree. You can put the glesquake source code wherever you wish, but you
+must set up a little stub file within the NDK directory tree that tells the NDK what to do.
+Here's how to do that:
+
+cd <your-ndk-directory>
+cd apps
+mkdir glesquakejni
+cd glesquakejni
+
+Now create a file named Application.mk with these two lines in it:
+
+APP_PROJECT_PATH := $(call my-dir)/../../../glesquake
+APP_MODULES      := quake
+
+Where /../../../glesquake is the relative path from the <your-ndk-directory>/apps/glesquake
+directory to the glesquake source directory.
+
+Building GLES Quake
+-------------------
+
+There are three parts to building GLES Quake:
+
+    1) Build the shared library
+    2) Create the Eclipse Project for the Application
+    3) Build the Java apk.
+
+Build the shared library:
+
+    cd <your-ndk-directory>
+    build/host-setup.sh
+    make APP=glesquakejni
+
+This should chug away for a while and ultimately produce the file
+
+libs/armeabi/libquake.so
+    
+Create the Eclipse project:
+
+    Start Eclipse
+    From the menu choose File : New Project
+    Choose Android:Android Project as a project type
+    Press Next
+    Set Project Name: GLESQuake
+    Choose "Create project from existing source"
+    Browse to the location of the glesquake source directory.
+    Make sure the "Android 1.6" Target Name is checked.
+    Make sure the Min SDK Version is 4
+    Press Finish
+
+Build the Java apk:
+
+    This should happen automatically once you've created the Eclipse project.
+

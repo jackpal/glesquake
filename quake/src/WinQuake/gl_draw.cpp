@@ -124,12 +124,14 @@ int			numgltextures;
 class textureStore {
 
 private:
+    static const GLuint UNUSED = (GLuint) -2;
+    static const GLuint PAGED_OUT = (GLuint) -1;
 
     struct entry
     {
         entry* next;
         entry* prev;
-        int real_texnum;    // < 0 == not assigned
+        GLuint real_texnum;    // UNUSED, PAGED_OUT
         byte* pData; // 0 ==> not created by us.
         size_t size;
         qboolean alpha;
@@ -140,7 +142,7 @@ private:
         entry() {
             next = 0;
             prev = 0;
-            real_texnum = -2;
+            real_texnum = UNUSED;
             pData = 0;
         }
 
@@ -190,10 +192,8 @@ public:
         mBoundTextureID = virtTexNum;
         entry* e = &mTextures[virtTexNum];
 
-        if ( e->real_texnum == -2) {
-            int realTexNum;
-            glGenTextures( 1, (unsigned int*)&realTexNum);
-            e->real_texnum = realTexNum;
+        if ( e->real_texnum == UNUSED) {
+            glGenTextures( 1, &e->real_texnum);
         }
 
         if ( e->pData == 0) {
@@ -214,16 +214,14 @@ public:
             mLast = e;
         }
 
-        if (e->real_texnum == -1 ) {
+        if (e->real_texnum == PAGED_OUT ) {
             // Create a real texture
             // Make sure there is enough room for this texture
             ensure(e->size);
 
-            int realTexNum;
-            glGenTextures( 1, (unsigned int*)&realTexNum);
+            glGenTextures( 1, &e->real_texnum);
 
-            e->real_texnum = realTexNum;
-            glBindTexture(GL_TEXTURE_2D, realTexNum);
+            glBindTexture(GL_TEXTURE_2D, e->real_texnum);
             GL_Upload8 (e->pData, e->width, e->height, e->mipmap,
                     e->alpha);
         }
@@ -256,7 +254,7 @@ public:
         e->width = width;
         e->height = height;
         e->mipmap = mipmap;
-        e->real_texnum = -1;
+        e->real_texnum = PAGED_OUT;
         mLength += size;
 
         update(e);
@@ -264,20 +262,22 @@ public:
 
     // Re-upload the current textures because we've been reset.
     void rebindAll() {
-      for(entry* e = mFirst; e; e = e->next ) {
-        if (e->real_texnum >= 0) {
+        grabMagicTextureIds();
+        for (entry* e = mFirst; e; e = e->next ) {
+            if (! (e->real_texnum == UNUSED || e->real_texnum == PAGED_OUT)) {
                 glBindTexture(GL_TEXTURE_2D, e->real_texnum);
                 if (e->pData) {
-          GL_Upload8 (e->pData, e->width, e->height, e->mipmap,
-              e->alpha);
+                    GL_Upload8 (e->pData, e->width, e->height, e->mipmap,
+                        e->alpha);
                 }
+            }
         }
-      }
     }
 
 private:
 
     textureStore() {
+        grabMagicTextureIds();
         mFirst = 0;
         mLast = 0;
         mTextureCount = 0;
@@ -319,6 +319,12 @@ private:
         COM_CloseFile(mFileId);
     }
 
+    void grabMagicTextureIds() {
+        // reserve these two texture ids.
+        glBindTexture(GL_TEXTURE_2D, UNUSED);
+        glBindTexture(GL_TEXTURE_2D, PAGED_OUT);
+    }
+
     void unlink(entry* e) {
         if (e == mFirst) {
             mFirst = e->next;
@@ -344,8 +350,8 @@ private:
     void evict(entry* e) {
         unlink(e);
         if ( e->pData ) {
-            glDeleteTextures(1, (unsigned int*) &e->real_texnum);
-            e->real_texnum = -1;
+            glDeleteTextures(1, &e->real_texnum);
+            e->real_texnum = PAGED_OUT;
             mRamUsed -= e->size;
         }
     }

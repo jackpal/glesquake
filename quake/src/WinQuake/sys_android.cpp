@@ -56,10 +56,14 @@ int noconinput = 0;
 int nostdout = 0;
 
 // Look for data on either the sdcard or the internal data store.
-// (We look at the sdcard first
+// (We look at the sdcard first.)
+
+// These paths must match equivalent paths in QuakeActivity.java
 
 static const char *basedir1 = "/sdcard/data/quake";
-static const char *basedir2 = "/data/quake";
+// Some Android devices have a second external sdcard
+static const char *basedir2 = "/sdcard-ext/data/quake";
+static const char *basedir3 = "/data/quake";
 
 static const char *cachedir = "/tmp";
 
@@ -571,9 +575,13 @@ void AndroidInit2(int width, int height)
   {
     basedir = basedir2;
   }
+  else if(direxists(basedir3))
+  {
+	basedir = basedir3;
+  }
   else
   {
-    Sys_Error("Could not find data directories %s or %s", basedir1, basedir2);
+    Sys_Error("Could not find data directories %s, %s or %s", basedir1, basedir2, basedir3);
   }
   parms.basedir = basedir;
 

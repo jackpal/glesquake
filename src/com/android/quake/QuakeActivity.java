@@ -90,6 +90,7 @@ public class QuakeActivity extends Activity {
 
     private boolean foundQuakeData() {
         return fileExists(SDCARD_DATA_PATH + PAK0_PATH)
+		|| fileExists(EXTERNAL_SDCARD_DATA_PATH + PAK0_PATH)
 		|| fileExists(INTERNAL_DATA_PATH + PAK0_PATH);
     }
 
@@ -97,8 +98,12 @@ public class QuakeActivity extends Activity {
         File f = new File(s);
         return f.exists();
     }
+    
+    // These paths must match equivalent paths in WinQuake/sys_android.cpp
 
     private final static String SDCARD_DATA_PATH = "/sdcard/data/quake";
+    // This directory used on some Android devices.
+    private final static String EXTERNAL_SDCARD_DATA_PATH = "/sdcard-ext/data/quake";
     private final static String INTERNAL_DATA_PATH = "/data/quake";
     private final static String PAK0_PATH = "/id1/pak0.pak";
 }

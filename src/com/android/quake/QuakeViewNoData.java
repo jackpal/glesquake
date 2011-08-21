@@ -45,6 +45,8 @@ public class QuakeViewNoData extends View {
                         10.0f, 20.0f, paint);
                 canvas.drawText("/sdcard/data/quake/id1/pak0.pak",
                         10.0f, 35.0f, paint);
+                canvas.drawText("/sdcard-ext/data/quake/id1/pak0.pak",
+                        10.0f, 50.0f, paint);
                 canvas.drawText("/data/quake/id1/pak0.pak",
                         10.0f, 50.0f, paint);
                 canvas.drawText("Please copy a pak file to the device and reboot.",

@@ -21,7 +21,7 @@ their ftp server. Beyond that, Internet search engines may be helpful.
 Obtain the Software Needed to Build GLES Quake
 ----------------------------------------------
 
-GLES Quake is built using the Android SDK 1.6 or newer and the Android NDK 1.6 or newer. You
+GLES Quake is built using the Android SDK 1.6 or newer and the Android NDK r5b or newer. You
 can install them from:
 
 http://developer.android.com/sdk
@@ -34,27 +34,6 @@ http://eclipse.org
 After you install the SDK and the NDK, please build some of the samples that
 come with the NDK in order to get a feel for using the SDK and the NDK.
 
-Setting up the Quake NDK Application Stub
------------------------------------------
-
-The current version of the NDK requires that you build the NDK library for Quake from within
-the NDK source tree. You can put the glesquake source code wherever you wish, but you
-must set up a little stub file within the NDK directory tree that tells the NDK what to do.
-Here's how to do that:
-
-cd <your-ndk-directory>
-cd apps
-mkdir glesquakejni
-cd glesquakejni
-
-Now create a file named Application.mk with these two lines in it:
-
-APP_PROJECT_PATH := $(call my-dir)/../../../glesquake
-APP_MODULES      := quake
-
-Where /../../../glesquake is the relative path from the <your-ndk-directory>/apps/glesquake
-directory to the glesquake source directory.
-
 Building GLES Quake
 -------------------
 
@@ -66,9 +45,14 @@ There are three parts to building GLES Quake:
 
 Build the shared library:
 
-    cd <your-ndk-directory>
-    build/host-setup.sh
-    make APP=glesquakejni
+    cd <your-glesquake-directory>
+    <path-to-the-android-ndk>/ndk-build
+    
+  Be sure to use the actual pathnames from your system. For example,
+  on my system I actually type the following:
+
+    cd ~/code/glesquake
+    ../android-ndk-r5b/ndk-build
 
 This should chug away for a while and ultimately produce the file
 
